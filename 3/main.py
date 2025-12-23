@@ -49,49 +49,49 @@ class Disk:
 
 
 # 3.2 Define Pole class
-# class Pole:
-#     def __init__(self, name="", xpos=0, ypos=0, thick=10, length=100):
-#         self.pname = name
-#         self.stack = []
-#         self.toppos = 0
-#         self.pxpos = xpos
-#         self.pypos = ypos
-#         self.pthick = thick
-#         self.plength = length
+class Pole:
+    def __init__(self, name="", xpos=0, ypos=0, thick=10, length=100):
+        self.pname = name
+        self.stack = []
+        self.toppos = 0
+        self.pxpos = xpos
+        self.pypos = ypos
+        self.pthick = thick
+        self.plength = length
     
-#     def showpole(self):
-#         """Display only the pole (using turtle module)"""
-#         turtle.penup()
-#         turtle.goto(self.pxpos, self.pypos)
-#         turtle.pendown()
-#         turtle.setheading(90)
-#         turtle.forward(self.plength)
+    def showpole(self):
+        """Display only the pole (using turtle module)"""
+        turtle.penup()
+        turtle.goto(self.pxpos, self.pypos)
+        turtle.pendown()
+        turtle.setheading(90)
+        turtle.forward(self.plength)
     
-#     def pushdisk(self, disk):
-#         """Move the disk from top of another pole and push it on top of stacked disks"""
-#         # Update disk position
-#         disk.pxpos = self.pxpos
-#         disk.pypos = self.pypos + self.toppos * disk.pthick
+    def pushdisk(self, disk):
+        """Move the disk from top of another pole and push it on top of stacked disks"""
+        # Update disk position
+        disk.pxpos = self.pxpos
+        disk.pypos = self.pypos + self.toppos * disk.pthick
         
-#         # Add to stack
-#         self.stack.append(disk)
-#         self.toppos += 1
+        # Add to stack
+        self.stack.append(disk)
+        self.toppos += 1
         
-#         # Draw the disk
-#         disk.showdisk()
+        # Draw the disk
+        disk.showdisk()
     
-#     def popdisk(self):
-#         """Move the top disk out of the pole and leave it above the pole"""
-#         if len(self.stack) == 0:
-#             return None
+    def popdisk(self):
+        """Move the top disk out of the pole and leave it above the pole"""
+        if len(self.stack) == 0:
+            return None
         
-#         disk = self.stack.pop()
-#         self.toppos -= 1
+        disk = self.stack.pop()
+        self.toppos -= 1
         
-#         # Clear the disk from current position
-#         disk.cleardisk()
+        # Clear the disk from current position
+        disk.cleardisk()
         
-#         return disk
+        return disk
 
 
 # 3.3 Define Hanoi class
