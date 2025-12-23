@@ -94,7 +94,6 @@ class Pole:
         return disk
 
 
-3.3 Define Hanoi class
 class Hanoi:
     def __init__(self, n=3, start="A", workspace="B", destination="C"):
         # Initialize turtle
