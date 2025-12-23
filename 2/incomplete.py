@@ -59,10 +59,10 @@ for travel in trip:
 print("Total travel cost:", travel_cost, "Bahts")
 
 # Display detailed breakdown
-# print("\nTrip Breakdown:")
-# print("-" * 60)
-# for i, travel in enumerate(trip, 1):
-#    print(f"{i}. {travel.__class__.__name__:10} | {travel.start:25} -> {travel.end:25}")
-#    print(f"   Distance: {travel.distance} km | Cost: {travel.find_cost()} Bahts")
-# print("-" * 60)
-# print(f"Total Cost: {travel_cost} Bahts")
+print("\nTrip Breakdown:")
+print("-" * 60)
+for i, travel in enumerate(trip, 1):
+   print(f"{i}. {travel.__class__.__name__:10} | {travel.start:25} -> {travel.end:25}")
+   print(f"   Distance: {travel.distance} km | Cost: {travel.find_cost()} Bahts")
+print("-" * 60)
+print(f"Total Cost: {travel_cost} Bahts")
