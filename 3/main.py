@@ -26,11 +26,14 @@ class Disk:
     
     def cleardisk(self):
         """Clear the disk from its current position"""
+        current_color = turtle.pencolor()
+        turtle.pencolor("white")
+        turtle.fillcolor("white")
+        
         turtle.penup()
         turtle.goto(self.pxpos - self.plength/2, self.pypos)
         turtle.pendown()
         turtle.setheading(0)
-        turtle.color("black")
         turtle.begin_fill()
         for _ in range(2):
             turtle.forward(self.plength)
@@ -38,7 +41,9 @@ class Disk:
             turtle.forward(self.pthick)
             turtle.left(90)
         turtle.end_fill()
-        turtle.color("black")
+        
+        turtle.pencolor(current_color)
+        turtle.fillcolor(current_color)
     
     def moveto(self, xpos, ypos):
         """Move the disk to new position"""
@@ -65,7 +70,9 @@ class Pole:
         turtle.goto(self.pxpos, self.pypos)
         turtle.pendown()
         turtle.setheading(90)
+        turtle.pensize(3)
         turtle.forward(self.plength)
+        turtle.pensize(1)
     
     def pushdisk(self, disk):
         """Move the disk from top of another pole and push it on top of stacked disks"""
@@ -91,20 +98,44 @@ class Pole:
         # Clear the disk from current position
         disk.cleardisk()
         
+        # Redraw pole to ensure it's visible
+        current_color = turtle.pencolor()
+        turtle.pencolor("black")
+        turtle.penup()
+        turtle.goto(self.pxpos, self.pypos)
+        turtle.pendown()
+        turtle.setheading(90)
+        turtle.pensize(3)
+        turtle.forward(self.plength)
+        turtle.pensize(1)
+        turtle.pencolor(current_color)
+        
         return disk
 
 
 class Hanoi:
     def __init__(self, n=3, start="A", workspace="B", destination="C"):
         # Initialize turtle
-        turtle.speed(50)
+        turtle.setup(800, 600)
+        turtle.speed(10)
         turtle.hideturtle()
         turtle.title("Tower of Hanoi")
+        turtle.bgcolor("white")
         
         # Create three poles
-        self.startp = Pole(start, -200, 0, 10, 200)
-        self.workspacep = Pole(workspace, 0, 0, 10, 200)
-        self.destinationp = Pole(destination, 200, 0, 10, 200)
+        self.startp = Pole(start, -200, -150, 10, 200)
+        self.workspacep = Pole(workspace, 0, -150, 10, 200)
+        self.destinationp = Pole(destination, 200, -150, 10, 200)
+        
+        # Draw base platforms
+        turtle.pencolor("black")
+        turtle.pensize(5)
+        for pole in [self.startp, self.workspacep, self.destinationp]:
+            turtle.penup()
+            turtle.goto(pole.pxpos - 80, pole.pypos)
+            turtle.pendown()
+            turtle.forward(160)
+        turtle.pensize(1)
         
         # Draw the poles
         self.startp.showpole()
@@ -113,32 +144,41 @@ class Hanoi:
         
         # Add labels
         turtle.penup()
-        turtle.goto(-200, -30)
+        turtle.goto(-200, -180)
         turtle.write(start, align="center", font=("Arial", 14, "bold"))
-        turtle.goto(0, -30)
+        turtle.goto(0, -180)
         turtle.write(workspace, align="center", font=("Arial", 14, "bold"))
-        turtle.goto(200, -30)
+        turtle.goto(200, -180)
         turtle.write(destination, align="center", font=("Arial", 14, "bold"))
         
         # Create and place disks on start pole
         self.n = n
+        colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink"]
         for i in range(n):
-            disk = Disk("d"+str(i), 0, i*25, 20, (n-i)*30 + 40)
+            disk = Disk("d"+str(i), 0, 0, 20, (n-i)*30 + 40)
             # Set color based on disk size
-            colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink"]
-            turtle.color(colors[i % len(colors)])
+            turtle.pencolor(colors[i % len(colors)])
+            turtle.fillcolor(colors[i % len(colors)])
             self.startp.pushdisk(disk)
         
-        turtle.color("black")
-        turtle.speed(50)  # Slow down for animation
+        turtle.pencolor("black")
+        turtle.fillcolor("black")
+        turtle.speed(10)  # Slow down for animation
     
     def move_disk(self, start, destination):
         """Move one disk from start pole to destination pole"""
         disk = start.popdisk()
         if disk:
-            time.sleep(0.3)
+            time.sleep(0.2)
+            
+            # Get the disk's current color
+            colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink"]
+            disk_index = int(disk.pname[1])
+            turtle.pencolor(colors[disk_index % len(colors)])
+            turtle.fillcolor(colors[disk_index % len(colors)])
+            
             destination.pushdisk(disk)
-            time.sleep(0.3)
+            time.sleep(0.2)
     
     def move_tower(self, n, s, d, w):
         """Recursively move n disks from source to destination using workspace"""
@@ -155,6 +195,11 @@ class Hanoi:
         print(f"Moving from {self.startp.pname} to {self.destinationp.pname} using {self.workspacep.pname}")
         self.move_tower(self.n, self.startp, self.destinationp, self.workspacep)
         print("Done!")
+        
+        # Display completion message
+        turtle.penup()
+        turtle.goto(0, 100)
+        turtle.pencolor("green")
 
 
 # Main program
