@@ -94,68 +94,68 @@ class Pole:
         return disk
 
 
-# 3.3 Define Hanoi class
-# class Hanoi:
-#     def __init__(self, n=3, start="A", workspace="B", destination="C"):
-#         # Initialize turtle
-#         turtle.speed(50)
-#         turtle.hideturtle()
-#         turtle.title("Tower of Hanoi")
+3.3 Define Hanoi class
+class Hanoi:
+    def __init__(self, n=3, start="A", workspace="B", destination="C"):
+        # Initialize turtle
+        turtle.speed(50)
+        turtle.hideturtle()
+        turtle.title("Tower of Hanoi")
         
-#         # Create three poles
-#         self.startp = Pole(start, -200, 0, 10, 200)
-#         self.workspacep = Pole(workspace, 0, 0, 10, 200)
-#         self.destinationp = Pole(destination, 200, 0, 10, 200)
+        # Create three poles
+        self.startp = Pole(start, -200, 0, 10, 200)
+        self.workspacep = Pole(workspace, 0, 0, 10, 200)
+        self.destinationp = Pole(destination, 200, 0, 10, 200)
         
-#         # Draw the poles
-#         self.startp.showpole()
-#         self.workspacep.showpole()
-#         self.destinationp.showpole()
+        # Draw the poles
+        self.startp.showpole()
+        self.workspacep.showpole()
+        self.destinationp.showpole()
         
-#         # Add labels
-#         turtle.penup()
-#         turtle.goto(-200, -30)
-#         turtle.write(start, align="center", font=("Arial", 14, "bold"))
-#         turtle.goto(0, -30)
-#         turtle.write(workspace, align="center", font=("Arial", 14, "bold"))
-#         turtle.goto(200, -30)
-#         turtle.write(destination, align="center", font=("Arial", 14, "bold"))
+        # Add labels
+        turtle.penup()
+        turtle.goto(-200, -30)
+        turtle.write(start, align="center", font=("Arial", 14, "bold"))
+        turtle.goto(0, -30)
+        turtle.write(workspace, align="center", font=("Arial", 14, "bold"))
+        turtle.goto(200, -30)
+        turtle.write(destination, align="center", font=("Arial", 14, "bold"))
         
-#         # Create and place disks on start pole
-#         self.n = n
-#         for i in range(n):
-#             disk = Disk("d"+str(i), 0, i*25, 20, (n-i)*30 + 40)
-#             # Set color based on disk size
-#             colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink"]
-#             turtle.color(colors[i % len(colors)])
-#             self.startp.pushdisk(disk)
+        # Create and place disks on start pole
+        self.n = n
+        for i in range(n):
+            disk = Disk("d"+str(i), 0, i*25, 20, (n-i)*30 + 40)
+            # Set color based on disk size
+            colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink"]
+            turtle.color(colors[i % len(colors)])
+            self.startp.pushdisk(disk)
         
-#         turtle.color("black")
-#         turtle.speed(50)  # Slow down for animation
+        turtle.color("black")
+        turtle.speed(50)  # Slow down for animation
     
-#     def move_disk(self, start, destination):
-#         """Move one disk from start pole to destination pole"""
-#         disk = start.popdisk()
-#         if disk:
-#             time.sleep(0.3)
-#             destination.pushdisk(disk)
-#             time.sleep(0.3)
+    def move_disk(self, start, destination):
+        """Move one disk from start pole to destination pole"""
+        disk = start.popdisk()
+        if disk:
+            time.sleep(0.3)
+            destination.pushdisk(disk)
+            time.sleep(0.3)
     
-#     def move_tower(self, n, s, d, w):
-#         """Recursively move n disks from source to destination using workspace"""
-#         if n == 1:
-#             self.move_disk(s, d)
-#         else:
-#             self.move_tower(n-1, s, w, d)  # Move n-1 disks to workspace
-#             self.move_disk(s, d)             # Move largest disk to destination
-#             self.move_tower(n-1, w, d, s)  # Move n-1 disks from workspace to destination
+    def move_tower(self, n, s, d, w):
+        """Recursively move n disks from source to destination using workspace"""
+        if n == 1:
+            self.move_disk(s, d)
+        else:
+            self.move_tower(n-1, s, w, d)  # Move n-1 disks to workspace
+            self.move_disk(s, d)             # Move largest disk to destination
+            self.move_tower(n-1, w, d, s)  # Move n-1 disks from workspace to destination
     
-#     def solve(self):
-#         """Solve the Tower of Hanoi puzzle"""
-#         print(f"Solving Tower of Hanoi with {self.n} disks...")
-#         print(f"Moving from {self.startp.pname} to {self.destinationp.pname} using {self.workspacep.pname}")
-#         self.move_tower(self.n, self.startp, self.destinationp, self.workspacep)
-#         print("Done!")
+    def solve(self):
+        """Solve the Tower of Hanoi puzzle"""
+        print(f"Solving Tower of Hanoi with {self.n} disks...")
+        print(f"Moving from {self.startp.pname} to {self.destinationp.pname} using {self.workspacep.pname}")
+        self.move_tower(self.n, self.startp, self.destinationp, self.workspacep)
+        print("Done!")
 
 
 # Main program
